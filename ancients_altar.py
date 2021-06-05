@@ -91,7 +91,7 @@ class ancients_altar(object):
         
         
     def make_altar(self):
-        self.altar_field = mesh.Mesh(np.concatenate([block.data for block in self.blocks]))
+        self.altar_field = mesh.Mesh(np.concatenate([block.data for block in self.blocks])) # not ideal for same-sized blocks, but enables different sizes
         #todos
         #   - add frame
         #   - add labelling
@@ -133,13 +133,13 @@ class ancients_altar(object):
         self.altar_field.save(filename) # and is slice-able in cura :)
         
     
-    def makefield(self,xmax=5,ymax=10):        
+    def makefield(self,xmax=5,ymax=10):#veery slow   
         for x in range(xmax):
                 for y in range(ymax):
                     self.makeblock(xpos=x,ypos=y)
     
     
-    def random_demo(self):
+    def random_demo(self):#veery slow
         np.random.seed(42)
         for i,block in enumerate(self.blocks):
             #print("a")
@@ -147,8 +147,15 @@ class ancients_altar(object):
             z=block.z+ np.random.random()
             if (z>2).any():
                 z=z-1
-            self.blocks[i].z=z
+            self.blocks[i].z=z # change block z pos
             
+            
+    def random_demo_mx(self):#matrix access is fast
+        #np.random.seed(42)#pseudo-random
+        np.random.seed(int(time.time()))
+        h=np.random.random(size=(5,10))
+        self.make_mx_blocks(h) # different block heights
+                
         
 def demo1():
     aa = ancients_altar()
@@ -162,15 +169,28 @@ def demo1():
     
 def demo2():
     aa = ancients_altar()
-    aa.makefield()
+    aa.makefield()#create blockfield
     aa.show()
     while True:
-        aa.random_demo()
+        aa.random_demo()#update blocks with rand values
         aa.show()
         #update and flush the same figure
         aa.fig.canvas.draw()
         aa.fig.canvas.flush_events()        
       
+        
+def demo2mx(): # abit faster
+    aa = ancients_altar()
+    while True:
+        aa.random_demo_mx()#create blocks with rand values
+        aa.show()
+        #time.sleep(0.5)
+        #update and flush the same figure
+        aa.fig.canvas.draw()
+        aa.fig.canvas.flush_events()  
+        #time.sleep(0.1)
+        aa.blocks=[]#flush blocks
+        
         
 def demo3():#vectorize externally
     aa = ancients_altar()
@@ -223,6 +243,7 @@ def demo7():#matrix internally, mxn
     # generate dummy matrix
     np.random.seed(42)
     h=np.random.random(size=(5,10))
+    
     aa.make_mx_blocks(h)
     aa.show()
     
@@ -235,5 +256,6 @@ if __name__ == '__main__': # test if called as executable, not as library, regul
    #demo4()
    #demo5()
    #demo6()
-   demo7()
+   #demo7()
+   demo2mx()
    pass#if no demo selected and just compiling in jupyter(e.g. spyder)  console to call later
