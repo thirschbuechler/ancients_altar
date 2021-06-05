@@ -15,7 +15,7 @@ from stl import mesh # numpySTL
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
-#import time #time.sleep blocks drawing sometimes
+import time #time.sleep blocks drawing sometimes
 
 
 class ancients_altar(object):
