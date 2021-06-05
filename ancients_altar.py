@@ -26,7 +26,13 @@ class ancients_altar(object):
         self.blocks=[]
         self.altar_field = np.NaN
         self.fig=[]
+        self.vec_makeblock = np.vectorize(self.makeblock)
+        self.vec_makeblockc = np.vectorize(self.makeblockc)
         
+        
+    def makeblockc(self,h=1,coord=[0,0]):
+        self.makeblock(h=h,xpos=coord[0],ypos=coord[1])
+    
     
     def makeblock(self,h=1,xpos=0,ypos=0):    
         # Create 3 faces of a cube
@@ -75,6 +81,13 @@ class ancients_altar(object):
         combined.y += ypos
         
         self.blocks.append(combined)
+        
+        
+    def make_mx_blocks(self, mx):
+        xtrace=np.arange(0,np.shape(mx)[0])
+        ytrace=np.arange(0,np.shape(mx)[1])
+        coord = np.meshgrid(xtrace,ytrace)
+        self.vec_makeblock(xpos=coord[0],ypos=coord[1], h=mx.T)
         
         
     def make_altar(self):
@@ -157,10 +170,70 @@ def demo2():
         #update and flush the same figure
         aa.fig.canvas.draw()
         aa.fig.canvas.flush_events()        
+      
+        
+def demo3():#vectorize externally
+    aa = ancients_altar()
+    va = np.vectorize(aa.makeblock)
+    va(xpos=np.arange(1,10)) # vector input
+    aa.show()
+    
 
+def demo4():#vectorize internally
+    aa = ancients_altar()
+    #va = np.vectorize(aa.makeblock)
+    np.random.seed(42)
+    l=10
+    h=np.random.random(size=l)
+    #va(xpos=np.arange(0,l),h=h)
+    aa.vec_makeblock(xpos=np.arange(0,l),h=h)
+    aa.show()
+           
+        
+def demo5():#matrix externally, lxl
+    aa = ancients_altar()
+    np.random.seed(42)
+    l=10
+    h=np.random.random(size=(l,l))
+    xpos=np.arange(0,l)
+    ypos=xpos
+    #aa.vec_makeblock(xpos=xpos,ypos=ypos, h=h)
+    coord = np.meshgrid(xpos,ypos)
+    print(coord[0])
+    #aa.vec_makeblockc(coord=coord, h=h)
+    aa.vec_makeblock(xpos=coord[0],ypos=coord[1], h=h)
+    aa.show()
+    
+    
+def demo6():#matrix internally, lxl
+    aa = ancients_altar()
+    
+    # generate dummy matrix
+    np.random.seed(42)
+    l=10
+    h=np.random.random(size=(l,l))
+    
+    aa.make_mx_blocks(h)
+    aa.show()
+
+
+def demo7():#matrix internally, mxn
+    aa = ancients_altar()
+    
+    # generate dummy matrix
+    np.random.seed(42)
+    h=np.random.random(size=(5,10))
+    aa.make_mx_blocks(h)
+    aa.show()
+    
         
 #### test this library using semi Unit Testing ####
 if __name__ == '__main__': # test if called as executable, not as library, regular prints allowed
    #demo1()
    #demo2()
+   #demo3()
+   #demo4()
+   #demo5()
+   #demo6()
+   demo7()
    pass#if no demo selected and just compiling in jupyter(e.g. spyder)  console to call later
