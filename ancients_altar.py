@@ -127,9 +127,14 @@ class ancients_altar(object):
         
         plt.show()
         
+        
     def save(self, filename):
+        if self.altar_field == np.NaN:
+            self.make_altar()
+            
         if ".stl" not in filename:
             filename+=".stl"
+            
         self.altar_field.save(filename) # and is slice-able in cura :)
         
     
