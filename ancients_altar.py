@@ -133,7 +133,7 @@ class ancients_altar(object):
         
         
     def save(self, filename):
-        if self.altar_field == np.NaN:
+        if (self.altar_field == np.NaN) or (type(self.altar_field)==float):
             self.make_altar()
             
         if ".stl" not in filename:
