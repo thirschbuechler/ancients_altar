@@ -97,35 +97,39 @@ class ancients_altar(object):
         #   - add labelling
         
         
-    def show(self):
+    def show(self,show=True):
         self.make_altar()
-
-        if not self.fig:
-            self.fig = plt.figure()
-        ax = mplot3d.Axes3D(self.fig)
-        
-        colors=["b","r","g"]
-        ax.add_collection3d(mplot3d.art3d.Poly3DCollection(
-                self.altar_field.vectors,facecolors=colors[0], linewidth=1, alpha=0.5))
-        
-        #ax.scatter(self.altar_field.x,self.altar_field.y,self.altar_field.z)#draw points
-
-        # auto-scale to draw area - axes with equal lengths
-        scale = np.concatenate(self.altar_field.points).flatten()
-        ax.auto_scale_xyz(scale, scale, scale)
-
-        # auto-scale to draw area - axes with different lengths        
-        #xscale = np.concatenate(self.altar_field.x).flatten()
-        #yscale = np.concatenate(self.altar_field.y).flatten()
-        #zscale = np.concatenate(self.altar_field.z).flatten()
-        #ax.auto_scale_xyz(xscale, yscale, zscale)
-        
-        # color axes
-        ax.w_xaxis.line.set_color("red")
-        ax.w_yaxis.line.set_color("green")
-        ax.w_zaxis.line.set_color("blue")
-        
-        plt.show()
+        if not show:
+            return 0
+        else:
+    
+            if not self.fig:
+                self.fig = plt.figure()
+            ax = mplot3d.Axes3D(self.fig)
+            
+            colors=["b","r","g"]
+            ax.add_collection3d(mplot3d.art3d.Poly3DCollection(
+                    self.altar_field.vectors,facecolors=colors[0], linewidth=1, alpha=0.5))
+            
+            #ax.scatter(self.altar_field.x,self.altar_field.y,self.altar_field.z)#draw points
+    
+            # auto-scale to draw area - axes with equal lengths
+            scale = np.concatenate(self.altar_field.points).flatten()
+            ax.auto_scale_xyz(scale, scale, scale)
+    
+            # auto-scale to draw area - axes with different lengths        
+            #xscale = np.concatenate(self.altar_field.x).flatten()
+            #yscale = np.concatenate(self.altar_field.y).flatten()
+            #zscale = np.concatenate(self.altar_field.z).flatten()
+            #ax.auto_scale_xyz(xscale, yscale, zscale)
+            
+            # color axes
+            ax.w_xaxis.line.set_color("red")
+            ax.w_yaxis.line.set_color("green")
+            ax.w_zaxis.line.set_color("blue")
+            
+            plt.show()
+            return 1
         
         
     def save(self, filename):
