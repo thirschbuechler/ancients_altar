@@ -201,13 +201,13 @@ def demo2mx_cont(): # abit faster
         aa.blocks=[]#flush blocks
 
 
-def demo2mx(): # abit faster
+def demo2mx(size=(5,10),show=True): # abit faster
     aa = ancients_altar()
 
-    aa.random_demo_mx()#create blocks with rand values
-    aa.show()
+    aa.random_demo_mx(size)#create blocks with rand values
+    aa.show(show)
         
-    aa.save("demofield2mx")
+    aa.save("demofield2mx_{}x{}".format(size[0],size[1]))
         
         
 def demo3():#vectorize externally
@@ -275,6 +275,6 @@ if __name__ == '__main__': # test if called as executable, not as library, regul
    #demo5()
    #demo6()
    #demo7()
-   demo2mx()
+   demo2mx(size=(1001,16), show=False)
    #demo2mx_cont()
    pass#if no demo selected and just compiling in jupyter(e.g. spyder)  console to call later
