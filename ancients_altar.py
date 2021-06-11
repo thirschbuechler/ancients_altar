@@ -275,6 +275,7 @@ if __name__ == '__main__': # test if called as executable, not as library, regul
    #demo5()
    #demo6()
    #demo7()
-   demo2mx(size=(1001,16), show=False)
+   #demo2mx(size=(1001,16), show=False)
+   demo2mx(size=(10,16), show=False)
    #demo2mx_cont()
    pass#if no demo selected and just compiling in jupyter(e.g. spyder)  console to call later
