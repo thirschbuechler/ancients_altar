@@ -159,10 +159,10 @@ class ancients_altar(object):
             self.blocks[i].z=z # change block z pos
             
             
-    def random_demo_mx(self):#matrix access is fast
+    def random_demo_mx(self,size=(5,10)):#matrix access is fast
         #np.random.seed(42)#pseudo-random
         np.random.seed(int(time.time()))
-        h=np.random.random(size=(5,10))
+        h=np.random.random(size=size)
         self.make_mx_blocks(h) # different block heights
                 
         
@@ -176,7 +176,7 @@ def demo1():
     aa.save("demofield1")
     
     
-def demo2():
+def demo2_cont():
     aa = ancients_altar()
     aa.makefield()#create blockfield
     aa.show()
@@ -188,7 +188,7 @@ def demo2():
         aa.fig.canvas.flush_events()        
       
         
-def demo2mx(): # abit faster
+def demo2mx_cont(): # abit faster
     aa = ancients_altar()
     while True:
         aa.random_demo_mx()#create blocks with rand values
@@ -199,6 +199,15 @@ def demo2mx(): # abit faster
         aa.fig.canvas.flush_events()  
         #time.sleep(0.1)
         aa.blocks=[]#flush blocks
+
+
+def demo2mx(): # abit faster
+    aa = ancients_altar()
+
+    aa.random_demo_mx()#create blocks with rand values
+    aa.show()
+        
+    aa.save("demofield2mx")
         
         
 def demo3():#vectorize externally
@@ -267,4 +276,5 @@ if __name__ == '__main__': # test if called as executable, not as library, regul
    #demo6()
    #demo7()
    demo2mx()
+   #demo2mx_cont()
    pass#if no demo selected and just compiling in jupyter(e.g. spyder)  console to call later
