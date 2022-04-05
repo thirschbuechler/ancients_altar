@@ -16,5 +16,9 @@ Can output 3d-printable STLs (confirmed slicing works in Cura 4.9 - results in v
 
 Caveat: Slicing in Cura might take ages or forever on a slow CPU, as documented in slicing_tests.
 
+Example of large (1001x151) matrix, after resizing it in Cura to look square
+![demo3](cura_example.png)
+
+
 ## dependencies
 python3, numpy, matplotlib, numpy-stl

@@ -11,7 +11,7 @@ Make multiple blocks of different height in a 2D plane,
 in a 3D space
 
 """
-from stl import mesh # numpySTL
+from stl import mesh # numpy-stl
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
