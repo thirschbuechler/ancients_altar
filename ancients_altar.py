@@ -44,26 +44,26 @@ class ancients_altar(object):
         #       always 1 to figure out in wich plane it sits
         
         # Top of the cube
-        data['vectors'][0] = np.array([[0, 1, h],
-                                          [1, 0, h],
-                                          [0, 0, h]])
-        data['vectors'][1] = np.array([[1, 0, h],
-                                          [0, 1, h],
-                                          [1, 1, h]])
+        data['vectors'][0] = np.array([ [0, 1, h],
+                                        [1, 0, h],
+                                        [0, 0, h]])
+        data['vectors'][1] = np.array([ [1, 0, h],
+                                        [0, 1, h],
+                                        [1, 1, h]])
         # Front face
-        data['vectors'][2] = np.array([[1, 0, 0],
-                                          [1, 0, h],
-                                          [1, 1, 0]])
-        data['vectors'][3] = np.array([[1, 1, h],
-                                          [1, 0, h],
-                                          [1, 1, 0]])
+        data['vectors'][2] = np.array([ [1, 0, 0],
+                                        [1, 0, h],
+                                        [1, 1, 0]])
+        data['vectors'][3] = np.array([ [1, 1, h],
+                                        [1, 0, h],
+                                        [1, 1, 0]])
         # Left face
-        data['vectors'][4] = np.array([[0, 0, 0],
-                                          [1, 0, 0],
-                                          [1, 0, h]])
-        data['vectors'][5] = np.array([[0, 0, 0],
-                                          [0, 0, h],
-                                          [1, 0, h]])
+        data['vectors'][4] = np.array([ [0, 0, 0],
+                                        [1, 0, 0],
+                                        [1, 0, h]])
+        data['vectors'][5] = np.array([ [0, 0, 0],
+                                        [0, 0, h],
+                                        [1, 0, h]])
         
         # Since the cube faces are from 0 to 1 we can move it to the middle 
         #data['vectors'] -= .5 # would require z+= (h-1) on meshes_1 below
@@ -84,6 +84,9 @@ class ancients_altar(object):
         
         
     def make_mx_blocks(self, mx):
+        """ take a matrix and make blocks with the same size as the matrix
+        
+        """
         xtrace=np.arange(0,np.shape(mx)[0])
         ytrace=np.arange(0,np.shape(mx)[1])
         coord = np.meshgrid(xtrace,ytrace)
@@ -91,6 +94,9 @@ class ancients_altar(object):
         
         
     def make_altar(self):
+        """ make altar_field in show() or save(), not yet defined
+        
+        """
         self.altar_field = mesh.Mesh(np.concatenate([block.data for block in self.blocks])) # not ideal for same-sized blocks, but enables different sizes
         #todos
         #   - add frame
@@ -186,7 +192,7 @@ def demo2_cont():
         #update and flush the same figure
         aa.fig.canvas.draw()
         aa.fig.canvas.flush_events()        
-      
+    
         
 def demo2mx_cont(): # abit faster
     aa = ancients_altar()
@@ -226,7 +232,7 @@ def demo4():#vectorize internally
     #va(xpos=np.arange(0,l),h=h)
     aa.vec_makeblock(xpos=np.arange(0,l),h=h)
     aa.show()
-           
+    
         
 def demo5():#matrix externally, lxl
     aa = ancients_altar()
@@ -268,14 +274,14 @@ def demo7():#matrix internally, mxn
         
 #### test this library using semi Unit Testing ####
 if __name__ == '__main__': # test if called as executable, not as library, regular prints allowed
-   #demo1()
-   #demo2()
-   #demo3()
-   #demo4()
-   #demo5()
-   #demo6()
-   #demo7()
-   #demo2mx(size=(1001,16), show=False)
-   demo2mx(size=(10,16), show=False)
-   #demo2mx_cont()
-   pass#if no demo selected and just compiling in jupyter(e.g. spyder)  console to call later
+    #demo1()
+    #demo2()
+    #demo3()
+    #demo4()
+    #demo5()
+    #demo6()
+    #demo7()
+    #demo2mx(size=(1001,16), show=False)
+    demo2mx(size=(10,16), show=False)
+    #demo2mx_cont()
+    pass#if no demo selected and just compiling in jupyter(e.g. spyder)  console to call later
